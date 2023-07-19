@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 def main():
     st.title("Proyecto de Análisis de Datos de Telecomunicaciones")
@@ -10,6 +11,16 @@ def main():
         oportunidades de crecimiento para la compañía.
         """
     )
+
+    st.markdown('***') 
+
+
+    # Imagen desde el archivo
+    imagen = Image.open('Foto introduccion.jpg')
+
+    # Mostrar
+    st.image(imagen)
+
 
     st.markdown("## Contexto")
 
@@ -28,6 +39,8 @@ def main():
         """
     )
 
+    st.markdown('***') 
+
     st.markdown("## Objetivos")
 
     st.markdown(
@@ -38,14 +51,15 @@ def main():
         """
     )
 
+    st.markdown('***') 
+
     st.markdown("## Fuentes de datos")
 
     st.markdown(
         """
         Los datos utilizados para este proyecto provienen de la API de ENACOM, que ofrece información sobre los servicios 
         y operadores de telecomunicaciones en Argentina. La API se puede consultar desde este link: 
-        [API](https://datosabiertos.enacom.gob.ar/developers/).
-
+        [API](https://datosabiertos.enacom.gob.ar/developers/)
         Los datos se descargaron en formato csv y se almacenaron en la carpeta Datasets del repositorio.
         """
     )

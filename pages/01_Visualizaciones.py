@@ -8,10 +8,15 @@ import requests
 import json
 
 df_acc_hogares = pd.read_csv('Datasets/Acc_hogares.csv')
-df_velocidad_media = pd.read_csv('Datasets/Velocidad_media.csv')
 df_banda = pd.read_csv('Datasets/Tipo_banda.csv')
 df_acc_tecnologia = pd.read_csv('Datasets/Acc_tecnologia.csv')
+
 df_acc_tecnologia_prov = pd.read_csv('Datasets/Acc_tecnologia_prov.csv')
+df_acc_tecnologia_prov['fecha'] = pd.to_datetime(df_acc_tecnologia_prov['fecha'])
+
+df_velocidad_media = pd.read_csv('Datasets/Velocidad_media.csv')
+df_velocidad_media['fecha'] = pd.to_datetime(df_velocidad_media['fecha'])
+
 
 st.markdown('##### El siguiente Gráfico muestra las 5 provincias que han tenido mejores números de accesibilidad a lo largo del tiempo')
 
@@ -40,9 +45,12 @@ ax.legend()
 st.pyplot(fig)
 
 
-st.markdown('El gráfico anterior muestra las 5 provincias con un crecimiento sostenido en el tiempo respecto a accesos por cada 100 hogares, la provincia con más accesos históricamente ha sido la Capital Federal, su promedio para el tercer trimestre de 2022 supera los 120 accesos por cada 100 hogares, por la cantidad de habitantes de esta ciudad y a los servicios de telecomunicaciones de diversas organizaciones, haciendo que la media  sea superior a 100. La provincia Tierra Del Fuego presenta algo de variabilidad en sus cifras a lo largo del tiempo, esto puede deberse al tamaño de su población y otras causas externas. Las provincias de La Pampa, Córdoba y Buenos Aires presentan un crecimiento sostenido de sus cifras, por lo general el acceso por hogares en el país tiende a amentar cada año.')
+st.markdown('El gráfico anterior muestra las 5 provincias con un crecimiento sostenido en el tiempo respecto a accesos por cada 100 hogares, la provincia con más accesos históricamente ha sido la Capital Federal, su promedio para el tercer trimestre de 2022 supera los 120 accesos por cada 100 hogares, por la cantidad de habitantes de esta ciudad y a los servicios de telecomunicaciones de diversas organizaciones, haciendo que la media  sea superior a 100.')
+st.markdown('La provincia Tierra Del Fuego presenta algo de variabilidad en sus cifras a lo largo del tiempo, esto puede deberse al tamaño de su población y otras causas externas. Las provincias de La Pampa, Córdoba y Buenos Aires presentan un crecimiento sostenido de sus cifras, por lo general el acceso por hogares en el país tiende a amentar cada año.')
 
 st.markdown('***')
+
+
 
 st.markdown('#### Provincias con mejores velocidades de bajada')
 
@@ -73,6 +81,8 @@ st.pyplot(fig)
 st.markdown('En el anterior gráfico se muestran las 5 provincias con mayor media de bajada hasta la fecha, lo que concluye que históricamente la capital ha tenido las mejores velocidades y que las velocidades en el resto de las provincias aumentan con los años, esto indica que las personas tienden a contratar mejores planes, dándonos una visión de cómo mejorar los servicios prestados, aumentando la tasa de retención de clientes y con ello las ganancias.')
 
 st.markdown('***')
+
+
 
 st.markdown('#### Comparación entre Banda ancha fija y Dial up')
 
@@ -114,18 +124,29 @@ st.markdown('En el anterior gráfico se muestran las 5 provincias con mayor medi
 
 st.markdown('***')
 
+
+
 st.markdown('#### Número de accesos por tipo de tecnología')
 
 categorias = ['ADSL', 'Cablemodem', 'Fibra óptica', 'Wireless', 'Otros']
 
-# if st.checkbox('Seleccionar Año'):
-#     for i in df_acc_tecnologia['Año']:
-
-anio= st.slider('Definir año (2014-2022)', 0, 8, 8)
 agrupado =df_acc_tecnologia.groupby('Año').sum()
-valor = agrupado.index[anio]
 
-valores = agrupado.iloc[8,1:6].tolist()
+anio = 8
+valor = 2022
+
+st.markdown('Seleccionar Año:')
+
+a,b,c,d,e,f,g,h,j =  st.columns(9)
+ind =0
+for  i in a,b,c,d,e,f,g,h,j:
+    with i:
+        if st.button(f'{agrupado.index[ind]}'):
+            anio = ind
+            valor = agrupado.index[ind]
+    ind +=1
+
+valores = agrupado.iloc[anio,1:6].tolist()
 
 # Creamos un nuevo DataFrame utilizando las listas de categorías y valores
 data = pd.DataFrame({'Tipo de tecnología': categorias, 'Valores': valores})
@@ -152,6 +173,8 @@ st.pyplot(plot)
 st.markdown('En el anterior gráfico se muestra el número de accesos por tipo de tecnología, este gráfico varía según el año en que se configure, mostrando que tecnologías como ADSL han disminuido sus accesos con el tiempo, y tecnologías como Cablemódem y Fibra óptica han aumentado. Con lo anterior se deben mejorar la calidad de los servicios si queremos aumentar la fidelización de clientes y ampliar el rango de personas que pueden acceder a este tipo de tecnologías mejorando la infraestructura disponible.')
 
 st.markdown('***') 
+
+
 
 st.markdown('#### Número de accesos por tipo de tecnología y provincia')
 
@@ -197,6 +220,7 @@ st.pyplot(fig1)
 st.markdown('En el anterior gráfico se muestra cómo se distribuye la tecnología en cada provincia, con datos del tercer trimestre del 2022, nuevamente podemos decir que tecnologías como Cablemódem y Fibra óptica aumentaron su número de accesos, esta vez tenemos organizados los datos por las provincias con mayores accesos, lo que indica que son las provincias con mayor tasa de acceso por habitantes, ya que tienen la mayoría de la población del país.')
 
 
+
 st.markdown('***') 
 
 st.markdown('#### Relación entre accesos por cada 100 hogares y velocidad media de bajada')
@@ -211,6 +235,8 @@ plt.ylabel("Mbps (Media de bajada)")
 
 st.pyplot(fig)
 
+st.markdown('En el anterior gráfico de dispersión tenemos una cierta correlación positiva entre la velocidad media de bajada y los accesos por cada 100 hogares, esta información es importante porque indica que en las zonas donde hay mayor tasa de acceso al servicio las velocidades tienden a ser más altas.')
+
 
 
 st.markdown('***') 
@@ -219,6 +245,8 @@ st.markdown('#### Relación entre tipo de tecnología y velocidad de bajada')
 
 # Creación de los datos
 df_trimestral = df_acc_tecnologia_prov.groupby(pd.Grouper(key='fecha', freq='Q')).sum()
+
+df_velocidad_media = df_velocidad_media[['Año','Trimestre','Mbps (Media de bajada)','fecha']]
 df_trimestral2 = df_velocidad_media.groupby(pd.Grouper(key='fecha', freq='Q')).mean()
 
 año = df_trimestral.index
@@ -231,7 +259,7 @@ fig, ax1 = plt.subplots()
 ax1.plot(año, categoria1, color="blue", alpha=0.5, label="Cablemodem")
 ax1.plot(año, categoria2, color="blue", label="Fibra óptica")
 ax1.set_xlabel("Año")
-ax1.set_ylabel("Suma de accesos de Tipo de tecnología", color="blue")
+ax1.set_ylabel("Suma de accesos por Tipo de tecnología", color="blue")
 ax1.tick_params(axis="y", labelcolor="blue")
 
 formatter = ticker.FuncFormatter(lambda x, pos: f'{round(x)}M')
@@ -248,3 +276,5 @@ ax1.legend()
 
 # Mostrar gráfica
 st.pyplot(fig)
+
+st.markdown('Este gráfico cuenta con doble eje y en el cual se expresa la relación que exite entre las tecnologías de conexión con mayores accesos en la actualidad (izquierda) y la velocidad media de bajada medida en Mbsp (derecha), se hace evidente que el tipo de conexión influye bastante el las velocidades de bajada, es importante recalcar que en las últimas visualizaciones el número o tasa te accesos tiene una fuerte reación con la población total de esos lugares por lo cuál no siempre es lo más inteligente aumentar la covertura de los sericios en zonas con menos población sino mejorar la covertura existente.')
