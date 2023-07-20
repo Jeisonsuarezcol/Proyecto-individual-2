@@ -25,7 +25,7 @@ El repositorio contiene los siguientes archivos y carpetas:
 
 - `EDA PI N°2`: un notebook de Jupyter donde se realiza el análisis exploratorio de datos (EDA) con pasos documentados, cargando los datos desde la API de ENACOM y usando gráficos de barras, líneas, dispersión y barras agrupadas para visualizar las tendencias y patrones de los datos.
 - `Dashboard PI 2`: un archivo de Power BI donde se crea un dashboard interactivo que incluye indicadores clave de rendimiento (KPI) como el porcentaje de ingresos anuales de los operadores por tipo de tecnología (ADSL, Cablemodem, Fibra óptica, Wireless), el ingreso promedio por usuario (ARPU), el porcentaje de ingresos anuales promedio de los operadores y un mapa que muestra los servicios de telecomunicaciones disponibles en cada región del país.
-- `Introducción.py`: un archivo de Python donde se crea una visualización con Streamlit que muestra las gráficas del EDA y permite interactuar con algunas de ellas. El acceso a esta visualización se puede hacer desde este link: [].
+- `Introducción.py`: un archivo de Python donde se crea una visualización con Streamlit que muestra las gráficas del EDA y permite interactuar con algunas de ellas. El acceso a esta visualización se puede hacer desde este link: [Visualización](https://proyecto-individual-2-8re7kjjkrwo.streamlit.app/).
 - `Datasets`: una carpeta que contiene los archivos csv con los datos utilizados para el archivo de Power BI y la visualización de Streamlit.
 
 ## Requisitos
