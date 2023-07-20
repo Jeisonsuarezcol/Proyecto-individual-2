@@ -120,7 +120,7 @@ ax.legend()
 
 st.pyplot(fig)
 
-st.markdown('En el anterior gráfico se muestran las 5 provincias con mayor media de bajada hasta la fecha, lo que concluye que históricamente la capital ha tenido las mejores velocidades y que las velocidades en el resto de las provincias aumentan con los años, esto indica que las personas tienden a contratar mejores planes, dándonos una visión de cómo mejorar los servicios prestados, aumentando la tasa de retención de clientes y con ello las ganancias.')
+st.markdown('En el anterior gráfico se muestra la comparación entre banda ancha fija y Dial up, se hace evidente que la mayoría de las conexiones se hacen por banda ancha fija y que Dial up aporta poco más del 1% del total, esto es debido a que la velocidad de conexión con dial-up es muy lenta en comparación con otras formas de conexión a internet.')
 
 st.markdown('***')
 
