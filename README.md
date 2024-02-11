@@ -2,6 +2,7 @@
 
 Este proyecto tiene como objetivo analizar los datos de telecomunicaciones de Argentina, obtenidos de la API de la web del Ente Nacional de Comunicaciones (ENACOM), y encontrar oportunidades de crecimiento para la compañía.
 
+![Tablero](/Image/Dashboard.JPG)
 ## Contexto
 
 Las telecomunicaciones son la ciencia y la práctica de la transmisión de información a través de medios electromagnéticos, mediante el empleo de un conjunto de técnicas y materiales especializados. Dicha información puede consistir en datos textuales, de audio, de video o la combinación de los tres.
